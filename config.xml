@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://firevendas.com.br"
+        id       = "com.firevendas.mobile"
+        versionCode="10" 
+        version   = "1.0.0">
+
+    
+    <name>Firevendas</name>
+
+
+    <description>
+        Firevendas | Sistema de Vendas online - vs. offline
+    </description>
+
+    <author href="http://www.firevendas.com.br" email="firevendas@firevendas.com.br">
+    </author>
+
+    <preference name="fullscreen" value="true" />
+    <icon src="icon.png" />
+  
+</widget>
