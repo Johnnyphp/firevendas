@@ -2,35 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Documento sem título</title>
+<title>Firevendas | vs offline</title>
 
-
-	<style>
-	
-		.texto_padrao{
-		
-			font-family:Arial, Helvetica, sans-serif;
-			font-size:12px;
-			color:#666;	
-			
-		}
-		
-		.formulario{
-		
-			font-family:Arial, Helvetica, sans-serif;
-			font-size:16px;
-			color:#666;	
-			width:100%;
-			border-radius:0.4em;
-			border:#666 solid 1px;
-			
-		}
-	
-	</style>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="funcoes.js"></script>
+<link rel="stylesheet" type="text/css" href="geral.css"/>
 
 </head>
 
-<body>
+<body onload="verificaNovoUser()">
 <table width="100%" border="0" cellspacing="5" cellpadding="0">
   <tr>
     <td><table width="100%" border="0" cellspacing="5" cellpadding="0">
@@ -40,7 +20,35 @@
     </table></td>
   </tr>
   <tr>
-    <td height="278"><table width="300" border="0" align="center" cellpadding="0" cellspacing="5">
+    <td height="278"><table width="400" border="0" align="center" cellpadding="0" cellspacing="5">
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>
+        
+        <table width="100%" border="0" cellpadding="0" cellspacing="5" id="primeiro_cadastro" style="display:none">
+          <tr>
+            <td width="28%"><span class="texto_padrao">Nome</span></td>
+            <td width="72%"><input name="nome" type="text" class="formulario" id="nome" /></td>
+          </tr>
+          <tr>
+            <td><span class="texto_padrao">CPF / CNPJ </span></td>
+            <td><input name="cpfcnpj" type="text" class="formulario" id="cpfcnpj" /></td>
+          </tr>
+          <tr>
+            <td><span class="texto_padrao">Email</span></td>
+            <td><input name="email_cad" type="text" class="formulario" id="email_cad" /></td>
+          </tr>
+          <tr>
+            <td><span class="texto_padrao">Senha</span></td>
+            <td><input name="senha_cad" type="password" class="formulario" id="senha_cad" /></td>
+          </tr>
+          <tr>
+            <td colspan="2"><input onclick="cadastraNovoUser()" name="button2" type="submit" class="formulario" id="button2" value="Cadastrar" /></td>
+            </tr>
+        </table></td>
+      </tr>
       <tr>
         <td><span class="texto_padrao">Email</span></td>
       </tr>
@@ -55,7 +63,7 @@
         <td><input name="senha" type="text" class="formulario" id="senha" /></td>
       </tr>
       <tr>
-        <td><input name="button" type="submit" class="formulario" id="button" value="Entrar" /></td>
+        <td><input onclick="autenticaUsuario()" name="button" type="submit" class="formulario" id="button" value="Entrar" /></td>
       </tr>
     </table></td>
   </tr>
