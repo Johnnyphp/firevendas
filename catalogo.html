@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Firevendas | vs offline</title>
+
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="funcoes.js"></script>
+<link rel="stylesheet" type="text/css" href="geral.css"/>
+
+</head>
+
+<body onload="verificaNovoUser()">
+<table width="100%" border="0" cellspacing="5" cellpadding="0">
+  <tr>
+    <td height="102"><table width="100%" border="0" cellspacing="5" cellpadding="0">
+      <tr>
+        <td height="85" align="center"><img src="img/logo.png" width="205" height="72" alt="Firevendas Mobile" /></td>
+      </tr>
+      <tr>
+        <td height="19" align="center">
+        
+        
+        <table width="800" border="0" cellspacing="5" cellpadding="0">
+          <tr>
+            <td align="center" class="texto_padrao">Olá <strong><script> document.write(localStorage.getItem('nome_user')); </script></strong> ! | 
+            <span onclick="Sair()" style="cursor:pointer">Sair</span></td>
+          </tr>
+          <tr>
+            <td align="center" class="texto_padrao"><script> document.write(localStorage.getItem('status_user')); </script></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="19" align="center"><table width="800" border="0" cellspacing="5" cellpadding="0">
+      <tr>
+        <td>
+        
+        <script>
+		
+			//console.log(localStorage.getItem('tb_catalogo_digital'));
+			var img_produtos = localStorage.getItem('tb_catalogo_digital');
+			var linhas = img_produtos.split('#');
+			var quant_linhas = linhas.length;
+			var campos;
+			
+			for(var i=0; i<= quant_linhas; i++){
+			
+			
+				if(linhas[i] != null){
+					
+					
+					//document.write(linhas[i]);
+					campos = linhas[i].split('|');
+					
+					console.log(i+':'+campos[2]);
+					document.write("<img width='200px' src='data:image/png;base64,"+ campos[2] +"'>");	
+				}
+			}
+				
+		
+		
+		</script>
+        
+        </td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="19" align="center">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="19" align="center">
+    
+ 
+    
+    </td>
+  </tr>
+</table>
+</body>
+</html>
