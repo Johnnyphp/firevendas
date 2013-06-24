@@ -1,17 +1,12 @@
 ﻿var url_txt;
 function IrUrl(url_txt){
 
-	if(url_txt == '1'){
-		url_txt = 'http://www.firevendas.com.br/sistema/empresa/offline/off.php?repres='+localStorage.getItem('codigo_user')+'&empresa='+localStorage.getItem('empresa_user');
-		window.location = url_txt;
-	}else
-		window.location = url_txt;
+	window.location = url_txt;
 	
 }
 
 function SincronizaCatalogo(){
 
-	/*
 	$('#carregando_1').show();
 	var repres = localStorage.getItem('codigo_user');
 	var empresa = localStorage.getItem('empresa_user');
@@ -24,23 +19,37 @@ function SincronizaCatalogo(){
 				
 		success: function(retorno){
 			
+			//console.log(retorno);
+			
 			if(retorno == ''){
 
 				$('#msg_erro').show();
 				$('#carregando_1').hide();
 			
 			}else{
+							
+				//Monta um Estrutura de dados Local
+				var tabelas = retorno.split('----');
+				var quant_tabelas = tabelas.length;
 				
-				$('#carregando_1').hide();
-				$('#msg_sucesso').show();	
+				for(var i=0; i<= quant_tabelas; i++){
+					
+					console.log("IMAGEM: "+tabelas[i]);
+					console.log(' ');
+					
+					if(i == 0){
+						localStorage.setItem('tb_catalogo_digital', tabelas[i]);
+						console.log('PASSOU');
+					}
+				}
+				
 			}
 			
-			
-			
+			$('#msg_sucesso').show();
+			$('#carregando_1').hide();
 			
 		}
 	});
-	*/
 }
 
 function verificaTabelas(){

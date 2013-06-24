@@ -1,0 +1,36 @@
+﻿<script>
+	
+	function getParameter(p,href){
+		var parName = p.replace(/[[]/,"[").replace(/[]]/,"]");
+  		var rx = new RegExp("[?&#]"+parName+"=([^&#]*)");
+  		var valor = rx.exec(href);
+  		if(valor == null){
+    		return "";
+		}else{
+    		return valor[1];
+		}
+	}
+
+	var img_produtos = localStorage.getItem('tb_catalogo_digital');
+	var linhas = img_produtos.split('#');
+	var quant_linhas = linhas.length;
+	var campos;
+	
+	var produto = getParameter('produto',location.href);
+	var cor = getParameter('cor',location.href);
+	
+	alert(produto);
+	alert(cor);
+	/*		
+	for(var i=0; i<= quant_linhas; i++){
+			
+		campos = linhas[i].split('|');
+	
+		if(campos[0] == produto && campos[1] == cor)
+			document.write("<img width='800px' src='data:image/jpg;base64,"+ campos[2] +"'> ");	
+	}
+	*/
+	
+
+</script>
+
