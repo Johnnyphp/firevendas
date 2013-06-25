@@ -1,8 +1,16 @@
-﻿var url_txt;
+﻿function Sair(){
+	
+	window.close();	
+	
+}
+
+var url_txt;
 function IrUrl(url_txt){
 
+	$('#carrega').show();
+
 	if(url_txt == '1'){
-		url_txt = 'http://www.firevendas.com.br/sistema/empresa/offline/off.php?repres='+localStorage.getItem('codigo_user')+'&empresa='+localStorage.getItem('empresa_user');
+		url_txt = 'http://www.firevendas.com.br/sistema/empresa/offline/off3.php?repres='+localStorage.getItem('codigo_user')+'&empresa='+localStorage.getItem('empresa_user');
 		window.location = url_txt;
 	}else
 		window.location = url_txt;
@@ -178,7 +186,7 @@ function autenticaUsuario(){
 	}
 	
 	if(localStorage.getItem('id_user') == '')
-		alert('Usuario não encontrado!');
+		$('#msg_erro_login').show();
 	
 }
 

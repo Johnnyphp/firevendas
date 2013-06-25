@@ -77,6 +77,14 @@
         </table></td>
       </tr>
       <tr>
+        <td><table width="100%" border="0" cellpadding="0" cellspacing="5" id="msg_erro_login" style="display:none">
+          <tr>
+            <td width="4%"><img src="img/ico_atencao.png" width="36" height="32" alt="Carregando" /></td>
+            <td width="96%" class="texto_padrao">Erro: Email e/ou Senha(s) esta(ão) errado(s)</td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
         <td><span class="texto_padrao">Email</span></td>
       </tr>
       <tr>
@@ -87,10 +95,16 @@
         <td><span class="texto_padrao">Senha</span></td>
       </tr>
       <tr>
-        <td><input name="senha" type="text" class="formulario" id="senha" /></td>
+        <td><input name="senha" type="password" class="formulario" id="senha" /></td>
       </tr>
       <tr>
-        <td><input onclick="autenticaUsuario()" name="button" type="submit" class="formulario" id="button" value="Entrar" /></td>
+        <td align="right"><input onclick="autenticaUsuario()" name="button" type="image" src="img/bot_login.png" id="button" value="Entrar" /></td>
+      </tr>
+      <tr>
+        <td align="right">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="right" class="texto_padrao"><strong>Suporte (37) 9125 - 1032</strong></td>
       </tr>
     </table></td>
   </tr>
