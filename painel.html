@@ -8,44 +8,60 @@
 <script type="text/javascript" src="funcoes.js"></script>
 <link rel="stylesheet" type="text/css" href="geral.css"/>
 
+<style>
+
+	#tela_principal{
+	
+		background-color:#FFF;
+		border-radius:0.3em;
+		box-shadow: #333 5px 5px 1px;
+		
+	}
+
+</style>
+
 </head>
 
-<body onload="SincronizaCatalogo()">
+<body style="background-color:#004E9B"  onload="SincronizaCatalogo()">
 <table width="100%" border="0" cellspacing="5" cellpadding="0">
   <tr>
-    <td height="102"><table width="100%" border="0" cellspacing="5" cellpadding="0">
+    <td height="51">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="19"><table width="800" border="0" align="center" cellpadding="0" cellspacing="5" id="tela_principal">
       <tr>
-        <td height="85" align="center"><img src="img/logo.png" width="205" height="72" alt="Firevendas Mobile" /></td>
-      </tr>
-      <tr>
-        <td height="19" align="center"><table width="800" border="0" cellspacing="5" cellpadding="0">
+        <td align="center"><img src="img/logo.png" width="205" height="72" alt="Firevendas Mobile" /></td>
+        <td colspan="2" align="center"><table width="100%" border="0" cellspacing="5" cellpadding="0">
           <tr>
-            <td align="center" class="texto_padrao">Olá <strong><script> document.write(localStorage.getItem('nome_user')); </script></strong> ! | 
-            <span onclick="Sair()" style="cursor:pointer">Sair</span></td>
+            <td align="left" valign="middle" class="texto_padrao">Olá <strong>
+              <script> document.write(localStorage.getItem('nome_user')); </script>
+            </strong> ! </td>
           </tr>
           <tr>
-            <td align="center" class="texto_padrao"><script> document.write(localStorage.getItem('status_user')); </script></td>
+            <td height="20" align="left" class="texto_padrao"><script> document.write(localStorage.getItem('status_user')); </script></td>
+          </tr>
+        </table></td>
+        </tr>
+      <tr>
+        <td colspan="3" align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="3" align="center"><table width="800" border="0" align="center" cellpadding="0" cellspacing="5">
+          <tr>
+            <td><table width="100%" border="0" cellpadding="0" cellspacing="5" id="carrega" style="display:none">
+              <tr>
+                <td width="4%"><img src="img/carregando.gif" width="38" height="38" alt="Carregando" /></td>
+                <td width="96%" class="texto_padrao">Aguarde, carregando Catálogo Digital</td>
+              </tr>
+            </table></td>
           </tr>
         </table></td>
       </tr>
-    </table></td>
-  </tr>
-  <tr>
-    <td height="19"><table width="800" border="0" align="center" cellpadding="0" cellspacing="5">
       <tr>
-        <td><table width="100%" border="0" cellpadding="0" cellspacing="5" id="carrega" style="display:none">
-          <tr>
-            <td width="4%"><img src="img/carregando.gif" width="38" height="38" alt="Carregando" /></td>
-            <td width="96%" class="texto_padrao">Aguarde, carregando Catálogo Digital</td>
-          </tr>
-        </table></td>
-      </tr>
-    </table></td>
-  </tr>
-  <tr>
-    <td height="19"><table width="800" border="0" align="center" cellpadding="0" cellspacing="5">
+        <td colspan="3" align="center">&nbsp;</td>
+        </tr>
       <tr>
-        <td width="50%" align="center">
+        <td width="32%" align="center">
         
         
         
@@ -55,10 +71,12 @@
         
         
         </td>
-        <td width="50%" align="center"><img src="img/pedido_virtual.png" width="128" height="128" alt="Pedido Virtual" /></td>
+        <td width="34%" align="center"><img onclick="IrUrl('tabela_precos.html')" style="cursor:pointer" src="img/icon_tabela_de_precos.png" width="123" height="127" alt="Catalogo Digital" /></td>
+        <td width="34%" align="center"><img onclick="IrUrl('pedidos.html')" style="cursor:pointer" src="img/pedido_virtual.png" width="128" height="128" alt="Pedido Virtual" /></td>
         </tr>
       <tr>
         <td align="center" class="texto_padrao"><span onclick="IrUrl('1')" style="cursor:pointer">Catálogo Digital (offline)</span></td>
+        <td align="center" class="texto_padrao"><span onclick="IrUrl('tabela_precos.html')" style="cursor:pointer">Tabela de Preços (offline)</span></td>
         <td align="center" class="texto_padrao"><span onclick="IrUrl('pedidos.html')" style="cursor:pointer">Pedido Virtual (offline)</span></td>
       </tr>
       <tr>
@@ -77,6 +95,7 @@
             <td width="96%" class="texto_padrao">Catálogo Digital não sincronizado, você esta offline</td>
           </tr>
         </table></td>
+        <td align="center" class="texto_padrao">&nbsp;</td>
         <td align="center" class="texto_padrao">&nbsp;</td>
       </tr>
     </table></td>

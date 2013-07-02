@@ -1,0 +1,325 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Firevendas | vs offline</title>
+
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="jquery.maskedinput-1.2.2.js"></script>
+<script type="text/javascript" src="funcoes.js"></script>
+<script type="text/javascript" src="pedidos.js"></script>
+<script type="text/javascript" src="banco_de_dados.js"></script>
+
+<script>
+jQuery(function($){  
+    $("#previsao_entrega").mask("99/99/9999");
+});
+</script>
+
+<link rel="stylesheet" type="text/css" href="geral.css"/>
+
+<style>
+
+	#tela_principal{
+	
+		background-color:#FFF;
+		border-radius:0.3em;
+		box-shadow: #333 5px 5px 1px;
+		
+	}
+
+</style>
+
+</head>
+
+<body style="background-color:#004E9B" onload="SincronizaCatalogo()">
+<table width="100%" border="0" cellspacing="5" cellpadding="0">
+  <tr>
+    <td height="19">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="19">
+    
+    
+    <table width="800" border="0" align="center" cellpadding="0" cellspacing="5" id="tela_principal">
+      <tr>
+        <td colspan="3" align="center"><table width="100%" border="0" cellspacing="5" cellpadding="0">
+          <tr>
+            <td width="33%" align="center"><img src="img/logo.png" width="205" height="72" alt="Firevendas Mobile" /></td>
+            <td width="67%"><table width="100%" border="0" cellspacing="5" cellpadding="0">
+              <tr>
+                <td align="left" valign="middle" class="texto_padrao">Olá <strong>
+                  <script> document.write(localStorage.getItem('nome_user')); </script>
+                </strong> !</td>
+              </tr>
+              <tr>
+                <td height="20" align="left" class="texto_padrao"><script> document.write(localStorage.getItem('status_user')); </script></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+        </tr>
+      <tr>
+        <td width="11%" align="center"><img src="img/pedido_virtual.png" width="80" height="81" alt="Pedido Virtual" /></td>
+        <td width="17%" align="left" class="texto_padrao"><strong>Novo Pedido</strong></td>
+        <td width="72%" align="left" class="texto_padrao">
+          
+          
+          <table width="100%" border="0" align="center" cellpadding="0" cellspacing="5">
+            <tr>
+              <td width="552" align="right"><img onclick="cancelarPedido()" style="cursor:pointer" src="img/bot_cancelar_pedido.png" width="226" height="36" alt="Cancelar Pedido" /></td>
+              <td width="16" align="right">&nbsp;</td>
+              <td width="227" align="right"><img onclick="gravarPedido()" style="cursor:pointer" src="img/bot_gravar_pedido.png" width="226" height="36" alt="Gravar Pedido" /></td>
+              </tr>
+            </table>
+          
+          
+          </td>
+      </tr>
+      <tr>
+        <td colspan="3" align="left" class="texto_padrao"><hr /></td>
+      </tr>
+      <tr>
+        <td colspan="3" align="left" class="texto_padrao"><table width="100%" border="0" cellpadding="0" cellspacing="5" id="tela_inicio">
+          <tr>
+            <td colspan="3">
+            
+            
+            <table width="100%" border="0" cellpadding="0" cellspacing="5" id="msg_1" style="background-color:#F9F8CC; border:#D9D900 solid 1px; display:none">
+              <tr>
+                <td width="8%" align="center"><img src="img/ico_atencao.png" width="36" height="32" alt="Atenção" /></td>
+                <td width="92%" class="texto_padrao" style="font-size:12px"><strong>É necessário informar </strong><br />
+                  * Numero do Pedido<br />
+                  * Cliente<br />
+                  * Condição de Pagamento<br />
+                  * Negociação<br />
+                  * Percentual Solado</td>
+              </tr>
+            </table>
+            
+            
+            </td>
+            </tr>
+          <tr>
+            <td width="26%">Numero do Pedido</td>
+            <td width="7%"><label for="numero_pedido"><script> document.write(localStorage.getItem('codigo_user')+' - '); </script></label></td>
+            <td width="67%"><input name="numero_pedido" type="text" class="formulario" id="numero_pedido" /></td>
+          </tr>
+          <tr>
+            <td>Previsão de Entrega</td>
+            <td colspan="2"><input name="previsao_entrega" type="text" class="formulario" id="previsao_entrega" /></td>
+          </tr>
+          <tr>
+            <td>Cliente</td>
+            <td colspan="2">
+            
+            <select name="lista_clientes" class="formulario" id="lista_clientes">
+            	<option></option>
+              <script>
+					var linhas = localStorage.getItem('tb_clientes').split('#');
+					var quant_linhas = linhas.length;
+									
+					for(var i=0; i<= quant_linhas; i++){
+					
+						if(linhas[i] != null){
+						
+							var campos = linhas[i].split('|');
+							
+							if(! isNull( campos[0] ) )
+								document.write('<option value="'+campos[0]+'">'+campos[1]+'</option>');
+						
+						}
+					}
+				  
+                	</script>
+            </select></td>
+          </tr>
+          <tr>
+            <td>Condição de Pagamento</td>
+            <td colspan="2">
+            
+            <select name="lista_cond_pagto" class="formulario" id="lista_cond_pagto">
+              <option></option>
+              <script>
+					var linhas = localStorage.getItem('tb_condicoes_de_pagamento').split('#');
+					var quant_linhas = linhas.length;
+									
+					for(var i=0; i<= quant_linhas; i++){
+					
+						if(linhas[i] != null){
+						
+							var campos = linhas[i].split('|');
+							
+							if(! isNull( campos[1] ) )
+								document.write('<option value="'+campos[0]+'">'+campos[1]+'</option>');
+						
+						}
+					}
+				  
+                	</script>
+            </select></td>
+          </tr>
+          <tr>
+            <td>Negociação</td>
+            <td colspan="2">
+            
+            <select name="lista_negociacao" class="formulario" id="lista_negociacao">
+              <option></option>
+              <script>
+					var linhas = localStorage.getItem('tb_tabela_comissoes').split('#');
+					var quant_linhas = linhas.length;
+									
+					for(var i=0; i<= quant_linhas; i++){
+					
+						if(linhas[i] != null){
+						
+							var campos = linhas[i].split('|');
+							
+							if(! isNull( campos[1] ) )
+								document.write('<option value="'+campos[0]+'">'+campos[1]+'</option>');
+						
+						}
+					}
+				  
+                	</script>
+            </select></td>
+          </tr>
+          <tr>
+            <td>Percentual Solado</td>
+            <td colspan="2"><select name="lista_percentual_solado" class="formulario" id="lista_percentual_solado">
+              <option></option>
+              <script>
+					var linhas = localStorage.getItem('tb_percentual_solado').split('#');
+					var quant_linhas = linhas.length;
+									
+					for(var i=0; i<= quant_linhas; i++){
+					
+						if(linhas[i] != null){
+						
+							var campos = linhas[i].split('|');
+							
+							if(! isNull( campos[1] ) )
+								document.write('<option value="'+campos[0]+'">'+campos[1]+'</option>');
+						
+						}
+					}
+				  
+                	</script>
+            </select></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td colspan="2">
+            
+            	<img style="cursor:pointer" onclick="AdicionarProdutos()" src="img/bot_adicionar_produtos.png" width="226" height="36" alt="Adicionar Produtos" />
+            
+            </td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td colspan="3" align="left" class="texto_padrao"><hr /></td>
+      </tr>
+      <tr>
+        <td colspan="3" align="left" class="texto_padrao">
+        
+        
+        <table style="display:none" width="100%" border="0" cellpadding="0" cellspacing="5" id="tela_add_produtos">
+          <tr>
+            <td colspan="4">
+            
+            <table width="100%" border="0" cellpadding="0" cellspacing="5" id="msg_2" style="background-color:#F9F8CC; border:#D9D900 solid 1px; display:none">
+              <tr>
+                <td width="8%" align="center"><img src="img/ico_atencao.png" width="36" height="32" alt="Atenção" /></td>
+                <td width="92%">É necessário informar um Produto válido</td>
+              </tr>
+            </table>
+            
+            </td>
+            </tr>
+          <tr>
+            <td width="32%"><strong>Produtos</strong></td>
+            <td width="3%">&nbsp;</td>
+            <td width="27%">&nbsp;</td>
+            <td width="38%">&nbsp;</td>
+          </tr>
+          <tr>
+            <td><select name="lista_produtos" class="formulario" id="lista_produtos">
+              <option selected="selected"></option>
+              <script>
+					var linhas = localStorage.getItem('tb_produtos').split('#');
+					var quant_linhas = linhas.length;
+					
+					for(var i=1; i<= quant_linhas; i++){
+					
+						if(linhas[i] != null){
+						
+							var campos = linhas[i].split('|');
+							document.write('<option value="'+campos[0]+'">'+campos[0]+'</option>');
+							
+						}
+					}
+				  
+                	</script>
+            </select></td>
+            <td colspan="3"><img style="cursor:pointer" onclick="AdicionarProduto()" src="img/bot_abrir_produto.png" width="226" height="36" alt="Adicionar ao Pedido" /></td>
+            </tr>
+          <tr>
+            <td colspan="4">
+            
+            
+            <table style="display:nones" width="100%" border="0" cellpadding="0" cellspacing="5" id="tela_cores">
+              <tr>
+                <td width="38%"><strong>Cores</strong></td>
+                <td width="4%">&nbsp;</td>
+                <td width="58%"><strong>Preço Produto</strong></td>
+              </tr>
+              <tr>
+                <td><select name="lista_cores" class="formulario" id="lista_cores">
+                  <option selected="selected"></option>
+                </select></td>
+                <td>&nbsp;</td>
+                <td><input type="hidden" name="preco_atual" id="preco_atual" />
+                <div id="preco_produto"></div></td>
+              </tr>
+            </table></td>
+            </tr>
+          <tr>
+            <td colspan="4"><div id="grade"></div></td>
+            </tr>
+          <tr>
+            <td colspan="4"><div id="lista_de_itens"></div></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td colspan="3" align="center" class="texto_padrao">
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3" align="center" class="texto_padrao"></td>
+      </tr>
+      <tr>
+        <td align="left" class="texto_padrao">&nbsp;</td>
+        <td colspan="2" align="left" class="texto_padrao">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="3" align="left" class="texto_padrao"><table width="800" border="0" align="center" cellpadding="0" cellspacing="5">
+          <tr>
+            <td colspan="3" align="left">Observações do Pedido</td>
+          </tr>
+          <tr>
+            <td colspan="3" align="left"><textarea name="obs" rows="5" class="formulario" id="obs"></textarea></td>
+          </tr>
+          <tr>
+            <td width="552" align="right"><img onclick="cancelarPedido()" style="cursor:pointer" src="img/bot_cancelar_pedido.png" width="226" height="36" alt="Cancelar Pedido" /></td>
+            <td width="16" align="right">&nbsp;</td>
+            <td width="227" align="right"><img onclick="gravarPedido()" style="cursor:pointer" src="img/bot_gravar_pedido.png" width="226" height="36" alt="Gravar Pedido" /></td>
+          </tr>
+        </table></td>
+        </tr>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

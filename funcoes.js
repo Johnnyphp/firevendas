@@ -1,4 +1,116 @@
-﻿function Sair(){
+﻿function float2moeda(num) {
+
+   x = 0;
+
+   if(num<0) {
+      num = Math.abs(num);
+      x = 1;
+   }
+   if(isNaN(num)) num = "0";
+      cents = Math.floor((num*100+0.5)%100);
+
+   num = Math.floor((num*100+0.5)/100).toString();
+
+   if(cents < 10) cents = "0" + cents;
+      for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+         num = num.substring(0,num.length-(4*i+3))+'.'
+               +num.substring(num.length-(4*i+3));
+   ret = num + ',' + cents;
+   if (x == 1) ret = ' - ' + ret;return ret;
+
+}
+
+isNull = function(x)
+{
+	if((x == 'undefined') || (x == null)){return true;}
+	else{return false;}
+};
+
+isObject = function(x)
+{
+	if(!isNull(x))
+	{
+		if(x.constructor == Object){return true;}
+		else{return false;}
+	}
+	else{return false;}
+};
+
+isFunction = function(x)
+{
+	if(!isNull(x))
+	{
+		if(x instanceof Function){return true;}
+		else{return false;}
+	}
+	else{return false;}
+}
+
+isBoolean = function(x)
+{
+	if(!isNull(x))
+	{
+		if(x.constructor == Boolean){return true;}
+		else{return false;}
+	}
+	else{return false;}
+};
+
+isArray = function(x)
+{
+	if(!isNull(x))
+	{
+		if(x.constructor == Array){return true;}
+		else{return false;}
+	}
+	else{return false;}
+};
+
+isString = function(x)
+{
+	if(!isNull(x))
+	{
+		if(x.constructor == String){return true;}
+		else{return false;}
+	}
+	else{return false;}
+};
+
+isDate = function(x)
+{
+	if(!isNull(x))
+	{
+		if(x.constructor == Date){return true;}
+		else{return false;}
+	}
+	else{return false;}
+};
+
+isNumber = function(x)
+{
+	if(!isNull(x))
+	{
+		if(!isNaN(x) && (x.constructor != Boolean) && (x.constructor != Array)){return true;}
+		else{return false;}
+	}
+	else{return false;}
+};
+
+isInteger = function(x)
+{
+	if(!isNull(x))
+	{
+		if(isNumber(x))
+		{
+			if((x%1) == 0){return true;}
+			else{return false;}
+		}
+		else{return false;}
+	}
+	else{return false;}
+};
+
+function Sair(){
 	
 	window.close();	
 	
@@ -77,11 +189,14 @@ function verificaTabelas(){
 				
 				localStorage.setItem('status_user', 'Você esta online.');
 				
+				//Limpa as Tabela
+				localStorage.setItem('tb_tabela_de_precos', '');
+				
 				//Monta um Estrutura de dados Local
 				var tabelas = retorno.split('----');
 				var quant_tabelas = tabelas.length;
 				
-				console.log('TOTAL DE TABELAS: '+quant_tabelas);
+				//console.log('TOTAL DE TABELAS: '+quant_tabelas);
 				
 				for(var i=0; i<= quant_tabelas; i++){
 					
@@ -101,7 +216,7 @@ function verificaTabelas(){
 					}else if(i == 2){ //Tabela de Preços
 						
 						localStorage.setItem('tb_tabela_de_precos', tabelas[i]);
-						//console.log('GRAVOU: tb_tabela_de_precos');
+						
 						
 					}else if(i == 3){ //Tabela de Marcas
 						
@@ -128,7 +243,18 @@ function verificaTabelas(){
 						localStorage.setItem('tb_percentual_solado', tabelas[i]);
 						//console.log('GRAVOU: tb_percentual_solado');
 						
+					}else if(i == 8){ //Tabela Grades
+						
+						localStorage.setItem('tb_grades', tabelas[i]);
+						//console.log('GRAVOU: tb_grades');
+						
+					}else if(i == 9){ //Tabela de Cores
+						
+						localStorage.setItem('tb_cores', tabelas[i]);
+						//console.log('GRAVOU: tb_grades');
+						
 					}
+					
 					
 					console.log(tabelas[i]);
 					

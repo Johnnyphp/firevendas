@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Firevendas | vs offline</title>
+
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="funcoes.js"></script>
+
+<script>
+
+	function sincronizarPedidos(){
+		
+		$('#msg_sinc').show();
+		
+		$.ajax({
+				
+			type: "POST",
+			url: "http://www.firevendas.com.br/sistema/empresa/tarefas/sinc_pedidos.php",
+			data: "repres="+localStorage.getItem('codigo_user')+"&empresa="+localStorage.getItem('empresa_user')+"&pedidos="+localStorage.getItem('pedidos')+"&itens="+localStorage.getItem('itens_pedido'),
+				
+			success: function(retorno){
+				
+				console.log(retorno);
+			
+			
+				if(retorno == 1){
+					
+					alert('Pedidos enviados com sucesso.');
+					localStorage.setItem('pedidos' , '');
+					localStorage.setItem('itens_pedido' , '');
+					window.location = 'pedidos.html';
+					
+				}else{
+				
+					alert('Erro ao enviar os pedidos, verifique sua conexão com a internet.');	
+					
+				}
+				
+				$('#msg_sinc').hide();
+			}
+			
+		});
+		
+	}
+
+
+</script>
+
+
+<link rel="stylesheet" type="text/css" href="geral.css"/>
+
+<style>
+
+	#tela_principal{
+	
+		background-color:#FFF;
+		border-radius:0.3em;
+		box-shadow: #333 5px 5px 1px;
+		
+	}
+
+</style>
+
+</head>
+
+<body style="background-color:#004E9B" onload="SincronizaCatalogo()">
+<table width="100%" border="0" cellspacing="5" cellpadding="0">
+  <tr>
+    <td height="102"><table width="100%" border="0" cellspacing="5" cellpadding="0">
+      <tr>
+        <td height="51" align="center">&nbsp;</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="19">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="19"><table width="800" border="0" align="center" cellpadding="0" cellspacing="5" id="tela_principal">
+      <tr>
+        <td colspan="2" align="center"><table width="100%" border="0" cellspacing="5" cellpadding="0">
+          <tr>
+            <td width="33%" align="center"><img src="img/logo.png" width="205" height="72" alt="Firevendas Mobile" /></td>
+            <td width="67%"><table width="100%" border="0" cellspacing="5" cellpadding="0">
+              <tr>
+                <td align="left" valign="middle" class="texto_padrao">Olá <strong>
+                  <script> document.write(localStorage.getItem('nome_user')); </script>
+                </strong> !</td>
+              </tr>
+              <tr>
+                <td height="20" align="left" class="texto_padrao"><script> document.write(localStorage.getItem('status_user')); </script></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td colspan="2" align="center"><table width="800" border="0" align="center" cellpadding="0" cellspacing="5">
+          <tr>
+            <td><table width="100%" border="0" cellpadding="0" cellspacing="5" id="carrega" style="display:none">
+              <tr>
+                <td width="4%"><img src="img/carregando.gif" width="38" height="38" alt="Carregando" /></td>
+                <td width="96%" class="texto_padrao">Aguarde, carregando Catálogo Digital</td>
+              </tr>
+            </table>
+            
+            
+            <table width="100%" border="0" cellpadding="0" cellspacing="5" id="msg_sinc" style="display:none">
+              <tr>
+                <td width="4%"><img src="img/carregando.gif" width="38" height="38" alt="Carregando" /></td>
+                <td width="96%" class="texto_padrao">Aguarde, sincronizando seus pedidos com a Empresa, se tudo ocorrer com sucesso você receberá em seu email a confirmação de recebimento dos pedidos.</td>
+              </tr>
+            </table>
+            
+            </td>
+          </tr>
+        </table></td>
+        </tr>
+      <tr>
+        <td width="11%" align="center"><img src="img/pedido_virtual.png" width="80" height="81" alt="Pedido Virtual" /></td>
+        <td width="89%" align="left" class="texto_padrao"><strong>Pedido Virtual (offline)</strong></td>
+        </tr>
+      <tr>
+        <td colspan="2" align="left" class="texto_padrao"><table width="100%" border="0" cellspacing="5" cellpadding="0">
+          <tr>
+            <td width="16%" align="right"><img src="img/icon_novo.png" width="30" height="30" alt="Novo Pedido" /></td>
+            <td width="18%"><span style="cursor:pointer" onclick="IrUrl('novo_pedido.html')">Novo Pedido</span></td>
+            <td width="1%">&nbsp;</td>
+            <td width="4%"><p><img style="cursor:pointer" onclick="sincronizarPedidos()" src="img/icon_sincronizar.png" width="30" height="31" alt="Sincronizar" /></p></td>
+            <td width="61%"><span style="cursor:pointer" onclick="sincronizarPedidos()">Sincronizar Pedidos</span></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td colspan="2" align="center" class="texto_padrao">
+        
+        
+        <script>
+		
+			var cont = 0;
+			var linhas = localStorage.getItem('pedidos').split('#');
+			var quant_linhas = linhas.length;
+									
+			for(var i=0; i<= quant_linhas; i++){
+								
+				if(linhas[i] != null && linhas[i] != 'undefined'){
+								
+					var campos = linhas[i].split('|');
+					
+					
+					if(campos[0] != '' && campos[0] != null){
+					
+						cont++;
+						//document.writeln(campos[0]);
+												
+					}			
+				}
+			}
+		
+			if(cont > 0 )
+				document.write('Você tem '+cont+' pedidos para transferir');
+			else
+				document.write('Você não tem nenhum pedido no momento para transferir');
+				
+		</script>
+        
+        
+        
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" align="center" class="texto_padrao">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="2" align="center" class="texto_padrao">&nbsp;</td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

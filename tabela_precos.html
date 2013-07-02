@@ -1,0 +1,291 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Firevendas | vs offline</title>
+
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="funcoes.js"></script>
+<script type="text/javascript" src="pedidos.js"></script>
+<script type="text/javascript" src="banco_de_dados.js"></script>
+
+<link rel="stylesheet" type="text/css" href="geral.css"/>
+<style type="text/css">
+.padrao {font-family: Arial, Helvetica, sans-serif;
+}
+.padrao {font-size: 12px;
+}
+</style>
+
+<style>
+
+	#tela_principal{
+	
+		background-color:#FFF;
+		border-radius:0.3em;
+		box-shadow: #333 5px 5px 1px;
+		
+	}
+
+</style>
+
+</head>
+
+<body  style="background-color:#004E9B" onload="SincronizaCatalogo()">
+<table width="100%" border="0" cellspacing="5" cellpadding="0">
+  <tr>
+    <td height="51">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="19">
+    
+    
+    <table width="800" border="0" align="center" cellpadding="0" cellspacing="5" id="tela_principal">
+      <tr>
+        <td colspan="2" align="center"><table width="100%" border="0" cellspacing="5" cellpadding="0">
+          <tr>
+            <td width="33%" align="center"><img src="img/logo.png" width="205" height="72" alt="Firevendas Mobile" /></td>
+            <td width="67%"><table width="100%" border="0" cellspacing="5" cellpadding="0">
+              <tr>
+                <td align="left" valign="middle" class="texto_padrao">Olá <strong>
+                  <script> document.write(localStorage.getItem('nome_user')); </script>
+                  </strong> !</td>
+                </tr>
+              <tr>
+                <td height="20" align="left" class="texto_padrao"><script> document.write(localStorage.getItem('status_user')); </script></td>
+                </tr>
+              </table></td>
+            </tr>
+          </table></td>
+      </tr>
+      <tr>
+        <td colspan="2" align="center"><table width="800" border="0" align="center" cellpadding="0" cellspacing="5">
+          <tr>
+            <td><table width="100%" border="0" cellpadding="0" cellspacing="5" id="carrega" style="display:none">
+              <tr>
+                <td width="4%"><img src="img/carregando.gif" width="38" height="38" alt="Carregando" /></td>
+                <td width="96%" class="texto_padrao">Aguarde, carregando Catálogo Digital</td>
+                </tr>
+              </table></td>
+            </tr>
+          </table></td>
+      </tr>
+      <tr>
+        <td width="11%" align="center"><img src="img/pedido_virtual.png" width="80" height="81" alt="Pedido Virtual" /></td>
+        <td width="89%" align="left" class="texto_padrao"><strong>Tabeça de Preços</strong></td>
+      </tr>
+      <tr>
+        <td colspan="2" align="left" class="texto_padrao">Selecione uma Tabela de Negociação / Comissão</td>
+      </tr>
+      <tr>
+        <td colspan="2" align="left" class="texto_padrao">
+        
+        
+        
+        <select name="lista_comissoes" class="formulario" id="lista_comissoes" onchange="listaProdutos(this.value)">
+			<option selected="selected"></option>
+		  	<script>
+		  	  
+					var linhas = localStorage.getItem('tb_tabela_comissoes').split('#');
+					var quant_linhas = linhas.length;
+					quant_linhas -= 2;	
+
+							
+					for(var i=0; i<= quant_linhas; i++){
+						
+						if(linhas[i] != null && linhas[i] != 'undefined'){
+						
+							var campos = linhas[i].split('|');
+							document.write('<option value="'+campos[0]+'">'+campos[1]+'</option>');
+							
+						}
+					}
+				  
+			</script>
+        
+        </select>
+        
+        
+        
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" align="left" class="texto_padrao">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="2" align="left" class="texto_padrao">
+        
+
+          <script>
+		  		
+				var preco = 0;
+				var comissao_escolhida;
+				
+				function ajustaPreco( preco, comissao_escolhida ){
+					
+					//console.log('PRECO: '+preco)
+					//console.log('COMISSAO: '+comissao_escolhida)
+					//console.log(localStorage.getItem('tb_tabela_comissoes'))
+
+					var temp;
+					
+					var linhas = localStorage.getItem('tb_tabela_comissoes').split('#');
+					var quant_linhas = linhas.length;
+					
+					for(var i=0; i<= quant_linhas; i++){
+					
+						if(linhas[i] != null){
+							
+							//Dados do Comissão
+							var campos = linhas[i].split('|');
+							
+							console.log('TESTE: '+campos[0]);
+							
+							if(campos[0] == comissao_escolhida){
+							
+								/*
+									0	ID
+									1	DESCRICAO
+									2	PERCENTUAL
+									3	TIPO 2=soma 1=subtrai
+									4	POR 0=percentual 1=valor
+									5	VALOR
+								*/
+								
+								if(campos[4] == '0'){ //por percentual
+								
+									if(campos[3] == '1')
+										temp = preco - ( preco/100*(campos[2]) );
+									else
+										temp = preco + ( preco/100*(campos[2]) );
+																	
+								}else{ //por valor
+									
+									if(campos[3] == '1')
+										temp = preco - parseFloat(campos[5]);
+									else
+										temp = preco + parseFloat(campos[5]);
+									
+								}
+								
+							}
+						}
+						
+					}
+
+					return float2moeda( temp );
+					
+				}
+				
+				
+				
+				var comissao;
+				var retorno = '';
+				
+		  		function listaProdutos( comissao ){
+					
+					//Gira o percentual Solado
+					var linhas2 = localStorage.getItem('tb_percentual_solado').split('#');
+					var quant_linhas2 = linhas2.length;
+					
+					for(var i2=0; i2<= quant_linhas2; i2++){
+					
+					
+						
+					if( linhas2[i2] != 'undefined' && linhas2[i2] != null){
+					
+						var campos2 = linhas2[i2].split('|');
+						
+						if(! isNull( campos2[1] ) ){
+						
+						retorno += '<table style="background-color:#DADADA" width="100%" border="0" cellspacing="0" cellpadding="0"><tr>';
+						retorno += '<td width="30%" height="30" class="padrao" style="border:#999 solid 1px"><table width="100%" border="0" cellspacing="5" cellpadding="0"><tr>';
+						retorno += '<td>'+ campos2[1] +'</td></tr></table></td>';
+						retorno += '</tr></table>';
+						
+						
+					
+						//console.log(localStorage.getItem('tb_produtos'));
+						console.log(localStorage.getItem('tb_tabela_de_precos'));
+						
+						var linhas = localStorage.getItem('tb_tabela_de_precos').split('#');
+					
+						var quant_linhas = linhas.length;
+						
+						for(var i=0; i<= quant_linhas; i++){
+							
+							//console.log(linhas[i]);
+							
+							if( linhas[i] != 'undefined' && linhas[i] != null){
+								
+								//Dados do Produtos
+								var campos = linhas[i].split('|');
+								
+									
+									if(! isNull( campos[2] ) ){
+										
+										if(campos2[0] == campos[3]){
+														
+											retorno += '<table style="background-color:" width="100%" border="0" cellspacing="0" cellpadding="0"><tr>';
+											retorno += '<td width="30%" height="30" class="padrao" style="border:#999 solid 1px"><table width="100%" border="0" cellspacing="5" cellpadding="0"><tr>';
+											retorno += '<td>'+ campos[1] +'</td></tr></table></td>';
+											retorno += '<td width="70%" height="30" class="padrao" style="border:#999 solid 1px"><table width="100%" border="0" cellspacing="5" cellpadding="0">';
+											retorno += '<tr><td>'+ ajustaPreco( parseFloat(campos[2]), comissao ) +'</td></tr></table></td>';
+											retorno += '</tr></table>';
+											
+										}
+										
+									}
+	
+							}
+						}
+						
+						$('#lista_produtos').html(retorno);			
+					
+					}
+					}
+					}//FIM DO GIRO DO PERCENTUAL SOLADO
+								
+					
+				}
+		  		
+					
+				  
+                	</script>
+        
+        
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" align="left" class="texto_padrao"></td>
+      </tr>
+      <tr>
+        <td colspan="2" align="left" class="texto_padrao">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="2" align="left" class="texto_padrao">
+        
+        <table style="background-color:#DADADA" width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="30%" height="30" class="padrao" style="border:#999 solid 1px"><table width="100%" border="0" cellspacing="5" cellpadding="0">
+              <tr>
+                <td>Produto</td>
+              </tr>
+            </table></td>
+            <td width="70%" height="30" class="padrao" style="border:#999 solid 1px"><table width="100%" border="0" cellspacing="5" cellpadding="0">
+              <tr>
+                <td>Preço</td>
+                </tr>
+            </table></td>
+            </tr>
+        </table>
+        
+        <div id="lista_produtos"></div>
+        
+          </td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>
