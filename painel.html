@@ -8,6 +8,21 @@
 <script type="text/javascript" src="funcoes.js"></script>
 <link rel="stylesheet" type="text/css" href="geral.css"/>
 
+<script>
+
+	function Define(){
+		
+		$('#empresa').val(localStorage.getItem('empresa_user'));
+		$('#repres').val(localStorage.getItem('codigo_user'));
+	
+		alert($('#empresa').val());
+		alert($('#repres').val());
+	
+	
+	}
+	
+</script>
+
 <style>
 
 	#tela_principal{
@@ -22,7 +37,7 @@
 
 </head>
 
-<body style="background-color:#004E9B"  onload="SincronizaCatalogo()">
+<body style="background-color:#004E9B"  onload="SincronizaCatalogo(); Define()">
 <table width="100%" border="0" cellspacing="5" cellpadding="0">
   <tr>
     <td height="51">&nbsp;</td>
@@ -66,18 +81,24 @@
         
         
         
-        <img onclick="IrUrl('1')" style="cursor:pointer" src="img/catalogo_digital.png" width="128" height="128" alt="Catalogo Digital" />
-        
-        
-        
-        </td>
+        <table width="100%" border="0" cellspacing="5" cellpadding="0">
+          <tr>
+            <td align="center" class="texto_padrao">
+              
+              <form id="form1" name="form1" method="post" action="http://www.firevendas.com.br/sistema/empresa/offline/off_novo.php">
+                <input type="hidden" name="empresa" id="empresa" />
+                <input type="hidden" name="repres" id="repres" />
+<input name="input" type="image" src="img/catalogo_digital.png" />
+                </form>
+            </tr>
+          </table></td>
         <td width="34%" align="center"><img onclick="IrUrl('tabela_precos.html')" style="cursor:pointer" src="img/icon_tabela_de_precos.png" width="123" height="127" alt="Catalogo Digital" /></td>
         <td width="34%" align="center"><img onclick="IrUrl('cadastro_clientes.html')" style="cursor:pointer" src="img/icon_clientes.png" width="128" height="128" alt="Clientes" /></td>
         </tr>
       <tr>
-        <td align="center" class="texto_padrao"><span onclick="IrUrl('1')" style="cursor:pointer">Catálogo Digital (offline)</span></td>
-        <td align="center" class="texto_padrao"><span onclick="IrUrl('tabela_precos.html')" style="cursor:pointer">Tabela de Preços (offline)</span></td>
-        <td align="center" class="texto_padrao"><span onclick="IrUrl('cadastro_clientes.html')" style="cursor:pointer">Cadastro de Clientes (offline)</span></td>
+        <td align="center" class="texto_padrao"><span >Catálogo Digital (offline)</span></td>
+        <td align="center" class="texto_padrao"><span >Tabela de Preços (offline)</span></td>
+        <td align="center" class="texto_padrao"><span >Cadastro de Clientes (offline)</span></td>
       </tr>
       <tr>
         <td align="center" class="texto_padrao">
@@ -101,7 +122,7 @@
       <tr>
         <td align="center" class="texto_padrao">&nbsp;</td>
         <td align="center" class="texto_padrao">&nbsp;</td>
-        <td align="center" class="texto_padrao"><span style="cursor:pointer">Pedido Virtual (offline)</span></td>
+        <td align="center" class="texto_padrao"><span >Pedido Virtual (offline)</span></td>
       </tr>
     </table></td>
   </tr>
