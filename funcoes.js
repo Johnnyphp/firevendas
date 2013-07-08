@@ -1,4 +1,68 @@
-﻿function float2moeda(num) {
+﻿function gravarCliente(){
+	
+	//console.log(localStorage.getItem('tb_temp_clientes'));
+	//localStorage.setItem('tb_temp_clientes', '');
+	
+	//Verifica todos os Dados
+	if($('#razao_social').val()	== '' || $('#cnpj').val()	== '' || $('#ie').val()	== '' || $('#endereco').val()	== '' || $('#numero').val()	== '' || $('#bairro').val()	== '' || $('#cep').val() == '' || $('#telefone').val()	== '' || $('#email').val()	== '')
+		alert('Alguns Campos de preenchimento obrigatório estão vazios!');
+	else{
+		
+		//Cria ID Unico
+		var now = new Date(); 
+		var horas = now.getHours(); 
+		var minutos = now.getMinutes();
+		var segundos = now.getSeconds(); 
+		
+		var mydate = new Date(); 
+		var dia = mydate.getDay(); 
+		
+		var id_cliente = 'fv_'+horas+minutos+segundos+dia;
+		
+		
+		var temp_clientes = localStorage.getItem('tb_temp_clientes');
+		temp_clientes += id_cliente+'|'+$('#estado').val()+'|'+$('#cidades').val()+'|'+$('#razao_social').val()+'|'+$('#cnpj').val()+'|'+$('#ie').val()+'|'+$('#endereco').val()+'|'+$('#numero').val()+'|'+$('#bairro').val()+'|'+$('#cep').val() +'|'+$('#telefone').val()+'|'+$('#email').val()+'|'+$('#obs').val()+'#';
+		localStorage.setItem('tb_temp_clientes', temp_clientes);
+		
+		console.log(localStorage.getItem('tb_temp_clientes'));
+		window.location = 'painel.html';
+		
+	}
+}
+
+
+
+var uf = '';
+
+function listaCidades(uf){
+	
+	//console.log(uf);
+	
+	var retorno = '';
+	var linhas = localStorage.getItem('tb_cidades').split('#');
+	var quant_linhas = linhas.length;
+	quant_linhas -= 2;	
+	console.log(localStorage.getItem('tb_cidades'));
+							
+	for(var i=0; i<= quant_linhas; i++){
+						
+		if(linhas[i] != null && linhas[i] != 'undefined'){
+							
+			var campos = linhas[i].split('|');
+			
+			if(campos[1] == uf)
+				retorno += '<option value="'+campos[0]+'">'+campos[2]+'</option>';
+								
+		}
+	}
+	
+	//console.log(retorno);
+	$('#cidades').html(retorno);
+	
+}
+
+
+function float2moeda(num) {
 
    x = 0;
 
@@ -122,7 +186,7 @@ function IrUrl(url_txt){
 	$('#carrega').show();
 
 	if(url_txt == '1'){
-		url_txt = 'http://www.firevendas.com.br/sistema/empresa/offline/off.php?repres='+localStorage.getItem('codigo_user')+'&empresa='+localStorage.getItem('empresa_user');
+		url_txt = 'http://www.firevendas.com.br/sistema/empresa/offline/off_novo.php?repres='+localStorage.getItem('codigo_user')+'&empresa='+localStorage.getItem('empresa_user');
 		window.location = url_txt;
 	}else
 		window.location = url_txt;
@@ -253,7 +317,23 @@ function verificaTabelas(){
 						localStorage.setItem('tb_cores', tabelas[i]);
 						//console.log('GRAVOU: tb_grades');
 						
+					}else if(i == 10){ //Tabela de Estados
+						
+						localStorage.setItem('tb_estados', tabelas[i]);
+						//console.log('GRAVOU: tb_grades');
+						
+					}else if(i == 11){ //Tabela de Cidades
+						
+						localStorage.setItem('tb_cidades', tabelas[i]);
+						//console.log('GRAVOU: tb_grades');
+						
+					}else if(i == 12){ //Tabela de Tipo de Documentos
+						
+						localStorage.setItem('tb_tipos_documentos', tabelas[i]);
+						//console.log('GRAVOU: tb_grades');
+						
 					}
+					
 					
 					
 					console.log(tabelas[i]);
@@ -282,6 +362,8 @@ function autenticaUsuario(){
 	localStorage.setItem('email_user', '');
 	localStorage.setItem('senha_user', '');
 	localStorage.setItem('empresa_user', '');
+	
+	console.log(localStorage.getItem('tb_usuarios'));
 			
 	var temp = localStorage.getItem('tb_usuarios');
 	var linhas = temp.split('#');

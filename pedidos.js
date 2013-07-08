@@ -3,7 +3,7 @@
 function gravarPedido(){
 	
 	temp_lista_pedidos = localStorage.getItem('pedidos');	
-	temp_lista_pedidos += $('#numero_pedido').val()+'|'+$('#previsao_entrega').val()+'|'+$('#lista_clientes').val()+'|'+$('#lista_cond_pagto').val()+'|'+$('#lista_negociacao').val()+'|'+$('#lista_percentual_solado').val()+'|'+$('#obs').val()+'#';
+	temp_lista_pedidos += $('#numero_pedido').val()+'|'+$('#previsao_entrega').val()+'|'+$('#lista_clientes').val()+'|'+$('#lista_cond_pagto').val()+'|'+$('#lista_negociacao').val()+'|'+$('#lista_percentual_solado').val()+'|'+$('#obs').val()+'|'+$('#tipo_documento').val()+'#';
 	
 	localStorage.setItem('pedidos' , temp_lista_pedidos);
 	//console.log(localStorage.getItem('pedidos'));
@@ -93,12 +93,18 @@ function adicionarGrade(){
 	
 	//NUMERO PEDIDO|PRODUTO|COR|N1...N15|PRECO
 	//console.log($('#numero_pedido').val()+'|'+$('#lista_produtos').val()+'|'+$('#lista_cores').val()+'|'+$('#n1').val()+'|'+$('#n2').val()+'|'+$('#n3').val()+'|'+$('#n4').val()+'|'+$('#n5').val()+'|'+$('#n6').val()+'|'+$('#n7').val()+'|'+$('#n8').val()+'|'+$('#n9').val()+'|'+$('#n10').val()+'|'+$('#n11').val()+'|'+$('#n12').val()+'|'+$('#n13').val()+'|'+$('#n14').val()+'|'+$('#n15').val()+'|'+$('#preco_atual').val()+'#');
-		
-	temp_lista_itens = localStorage.getItem('itens_pedido');	
+	//localStorage.getItem('itens_pedido', '');
+	console.log('PRIMEIRA VEZ');
+	console.log(localStorage.getItem('itens_pedido'));	
+	console.log();
+	
+	var temp_lista_itens = ''+localStorage.getItem('itens_pedido');	
 	temp_lista_itens += $('#numero_pedido').val()+'|'+$('#lista_produtos').val()+'|'+$('#lista_cores').val()+'|'+$('#n1').val()+'|'+$('#n2').val()+'|'+$('#n3').val()+'|'+$('#n4').val()+'|'+$('#n5').val()+'|'+$('#n6').val()+'|'+$('#n7').val()+'|'+$('#n8').val()+'|'+$('#n9').val()+'|'+$('#n10').val()+'|'+$('#n11').val()+'|'+$('#n12').val()+'|'+$('#n13').val()+'|'+$('#n14').val()+'|'+$('#n15').val()+'|'+$('#preco_atual').val()+'#';
 	
 	localStorage.setItem('itens_pedido' , temp_lista_itens);
 	
+	console.log('SEGUNDA VEZ');
+	console.log(localStorage.getItem('itens_pedido'));
 	//console.log(localStorage.getItem('itens_pedido'));
 	
 	listarItens();
@@ -108,6 +114,8 @@ function adicionarGrade(){
 
 
 function AdicionarProdutos(){
+	
+		
 	
 	if($('#numero_pedido').val() != '' && $('#lista_clientes').val() != ''  && $('#lista_cond_pagto').val() != '' && $('#lista_negociacao').val() != '' && $('#lista_percentual_solado').val() != ''){
 		
@@ -276,7 +284,8 @@ var ii = 0;
 function AdicionarProduto(){
 
 	//localStorage.setItem('itens_pedido', '');
-
+	$('#msg_cor').show();
+	
 	if($('#lista_produtos').val() != ''){
 
 		$('#msg_2').hide();
@@ -327,8 +336,9 @@ function AdicionarProduto(){
 			$('#grade').html(str_grade);
 			$('#n1').focus();
 			
-			$('#tela_cores').show();
 			
+			$('#msg_cor').hide();
+			$('#tela_cores').show();
 			
 	
 	}else{

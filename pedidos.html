@@ -17,7 +17,7 @@
 				
 			type: "POST",
 			url: "http://www.firevendas.com.br/sistema/empresa/tarefas/sinc_pedidos.php",
-			data: "repres="+localStorage.getItem('codigo_user')+"&empresa="+localStorage.getItem('empresa_user')+"&pedidos="+localStorage.getItem('pedidos')+"&itens="+localStorage.getItem('itens_pedido'),
+			data: "repres="+localStorage.getItem('codigo_user')+"&empresa="+localStorage.getItem('empresa_user')+"&pedidos="+localStorage.getItem('pedidos')+"&itens="+localStorage.getItem('itens_pedido')+"&clientes="+localStorage.getItem('tb_temp_clientes'),
 				
 			success: function(retorno){
 				

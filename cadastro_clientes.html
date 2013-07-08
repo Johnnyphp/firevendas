@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Firevendas | vs offline</title>
+
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="funcoes.js"></script>
+<script type="text/javascript" src="pedidos.js"></script>
+<script type="text/javascript" src="banco_de_dados.js"></script>
+<script type="text/javascript" src="jquery.maskedinput-1.2.2.js"></script>
+
+<script>
+
+	jQuery(function($){  
+		$("#cnpj").mask("999.999.999/9999-99");
+		$("#telefone").mask("(99)9999-9999");
+		$("#cep").mask("99.999-999");
+	});
+	
+	function upperMe(Campo) {
+	
+	  var texto = $('#'+Campo).val();
+	  $('#'+Campo).val( texto.toUpperCase() );
+	  
+	}
+
+</script>
+
+
+<link rel="stylesheet" type="text/css" href="geral.css"/>
+<style type="text/css">
+.padrao {font-family: Arial, Helvetica, sans-serif;
+}
+.padrao {font-size: 12px;
+}
+</style>
+
+<style>
+
+	#tela_principal{
+	
+		background-color:#FFF;
+		border-radius:0.3em;
+		box-shadow: #333 5px 5px 1px;
+		
+	}
+
+</style>
+
+</head>
+
+<body  style="background-color:#004E9B" onload="SincronizaCatalogo()">
+<table width="100%" border="0" cellspacing="5" cellpadding="0">
+  <tr>
+    <td height="51">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="19">
+    
+    
+    <table width="800" border="0" align="center" cellpadding="0" cellspacing="5" id="tela_principal">
+      <tr>
+        <td colspan="2" align="center"><table width="100%" border="0" cellspacing="5" cellpadding="0">
+          <tr>
+            <td width="33%" align="center"><img src="img/logo.png" width="205" height="72" alt="Firevendas Mobile" /></td>
+            <td width="67%"><table width="100%" border="0" cellspacing="5" cellpadding="0">
+              <tr>
+                <td align="left" valign="middle" class="texto_padrao">Olá <strong>
+                  <script> document.write(localStorage.getItem('nome_user')); </script>
+                  </strong> !</td>
+                </tr>
+              <tr>
+                <td height="20" align="left" class="texto_padrao"><script> document.write(localStorage.getItem('status_user')); </script></td>
+                </tr>
+              </table></td>
+            </tr>
+          </table></td>
+      </tr>
+      <tr>
+        <td colspan="2" align="center"><table width="800" border="0" align="center" cellpadding="0" cellspacing="5">
+          <tr>
+            <td><table width="100%" border="0" cellpadding="0" cellspacing="5" id="carrega" style="display:none">
+              <tr>
+                <td width="4%"><img src="img/carregando.gif" width="38" height="38" alt="Carregando" /></td>
+                <td width="96%" class="texto_padrao">Aguarde, carregando Catálogo Digital</td>
+                </tr>
+              </table></td>
+            </tr>
+          </table></td>
+      </tr>
+      <tr>
+        <td width="18%" align="center"><img src="img/icon_clientes.png" width="80" height="81" alt="Pedido Virtual" /></td>
+        <td width="82%" align="left" class="texto_padrao"><strong>Cadastro de Clientes</strong></td>
+      </tr>
+      <tr>
+        <td colspan="2" align="left" class="texto_padrao">&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="left" class="texto_padrao">Estado</td>
+        <td align="left" class="texto_padrao"><select name="estado" class="formulario" id="estado" onchange="listaCidades(this.value)">
+          <option selected="selected"></option>
+          <script>
+		  	  
+					var linhas = localStorage.getItem('tb_estados').split('#');
+					var quant_linhas = linhas.length;
+					quant_linhas -= 2;	
+
+							
+					for(var i=0; i<= quant_linhas; i++){
+						
+						if(linhas[i] != null && linhas[i] != 'undefined'){
+						
+							var campos = linhas[i].split('|');
+							document.write('<option value="'+campos[1]+'">'+campos[2]+'</option>');
+							
+						}
+					}
+				  
+			</script>
+          </select></td>
+      </tr>
+      <tr>
+        <td align="left" class="texto_padrao">Cidade</td>
+        <td align="left" class="texto_padrao"><select name="cidades" class="formulario" id="cidades">
+          <option selected="selected"></option>
+        </select></td>
+      </tr>
+      <tr>
+        <td align="left" class="texto_padrao">Razão Social</td>
+        <td align="left" class="texto_padrao"><label for="razao_social"></label>
+          <input onBlur="upperMe('razao_social')" name="razao_social" type="text" class="formulario" id="razao_social" /></td>
+      </tr>
+      <tr>
+        <td align="left" class="texto_padrao">CNPJ</td>
+        <td align="left" class="texto_padrao"><input name="cnpj" type="text" class="formulario" id="cnpj" /></td>
+      </tr>
+      <tr>
+        <td align="left" class="texto_padrao">Inscrição Estadual</td>
+        <td align="left" class="texto_padrao"><input name="ie" type="text" class="formulario" id="ie" /></td>
+      </tr>
+      <tr>
+        <td align="left" class="texto_padrao">Endereço</td>
+        <td align="left" class="texto_padrao"><input  onBlur="upperMe('endereco')" name="endereco" type="text" class="formulario" id="endereco" /></td>
+      </tr>
+      <tr>
+        <td align="left" class="texto_padrao">Numero</td>
+        <td align="left" class="texto_padrao"><input name="numero" type="text" class="formulario" id="numero" /></td>
+      </tr>
+      <tr>
+        <td align="left" class="texto_padrao">Bairro</td>
+        <td align="left" class="texto_padrao"><input  onBlur="upperMe('bairro')" name="bairro" type="text" class="formulario" id="bairro" /></td>
+      </tr>
+      <tr>
+        <td align="left" class="texto_padrao">CEP</td>
+        <td align="left" class="texto_padrao"><input name="cep" type="text" class="formulario" id="cep" /></td>
+      </tr>
+      <tr>
+        <td align="left" class="texto_padrao">Telefone</td>
+        <td align="left" class="texto_padrao"><input name="telefone" type="text" class="formulario" id="telefone" /></td>
+      </tr>
+      <tr>
+        <td align="left" class="texto_padrao">Email</td>
+        <td align="left" class="texto_padrao"><input onBlur="upperMe('email')" name="email" type="text" class="formulario" id="email" /></td>
+      </tr>
+      <tr>
+        <td align="left" class="texto_padrao">Observações</td>
+        <td align="left" class="texto_padrao"><textarea  onBlur="upperMe('obs')" name="obs" rows="3" class="formulario" id="obs"></textarea></td>
+      </tr>
+      <tr>
+        <td align="left" class="texto_padrao">&nbsp;</td>
+        <td align="right" class="texto_padrao"><img style="cursor:pointer" onclick="gravarCliente()" src="img/bot_gravar_cliente.png" width="226" height="36" alt="Gravar Cliente" /></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

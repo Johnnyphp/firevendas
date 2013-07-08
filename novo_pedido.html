@@ -116,6 +116,23 @@ jQuery(function($){
             <select name="lista_clientes" class="formulario" id="lista_clientes">
             	<option></option>
               <script>
+					
+					var linhas = localStorage.getItem('tb_temp_clientes').split('#');
+					var quant_linhas = linhas.length;
+									
+					for(var i=0; i<= quant_linhas; i++){
+					
+						if(linhas[i] != null){
+						
+							var campos = linhas[i].split('|');
+							
+							if(! isNull( campos[0] ) )
+								document.write('<option value="'+campos[0]+'">'+campos[3]+'</option>');
+						
+						}
+					}
+					
+					
 					var linhas = localStorage.getItem('tb_clientes').split('#');
 					var quant_linhas = linhas.length;
 									
@@ -132,7 +149,9 @@ jQuery(function($){
 					}
 				  
                 	</script>
-            </select></td>
+            </select>
+            
+            </td>
           </tr>
           <tr>
             <td>Condição de Pagamento</td>
@@ -208,6 +227,35 @@ jQuery(function($){
             </select></td>
           </tr>
           <tr>
+            <td>Tipo de Documento</td>
+            <td colspan="2">
+            
+            
+            <select name="tipo_documento" class="formulario" id="tipo_documento">
+              <option></option>
+              <script>
+					var linhas = localStorage.getItem('tb_tipos_documentos').split('#');
+					var quant_linhas = linhas.length;
+									
+					for(var i=0; i<= quant_linhas; i++){
+					
+						if(linhas[i] != null){
+						
+							var campos = linhas[i].split('|');
+							
+							if(! isNull( campos[1] ) )
+								document.write('<option value="'+campos[0]+'">'+campos[1]+'</option>');
+						
+						}
+					}
+				  
+                	</script>
+            </select>
+            
+            
+            </td>
+          </tr>
+          <tr>
             <td>&nbsp;</td>
             <td colspan="2">
             
@@ -266,6 +314,14 @@ jQuery(function($){
             </tr>
           <tr>
             <td colspan="4">
+            
+            
+            <table style="display:none" width="100%" border="0" cellpadding="0" cellspacing="5" id="msg_cor">
+              <tr>
+                <td width="2%"><img src="img/carregando.gif" width="38" height="38" alt="Carregando" /></td>
+                <td width="98%">Aguarde, carregando tabela de Cores do Produto</td>
+              </tr>
+            </table>
             
             
             <table style="display:nones" width="100%" border="0" cellpadding="0" cellspacing="5" id="tela_cores">
