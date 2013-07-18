@@ -6,6 +6,24 @@
 
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="funcoes.js"></script>
+
+<script>
+	
+	function Limpar(){
+		
+		localStorage.setItem('id_user', '');
+		localStorage.setItem('nome_user', '');
+		localStorage.setItem('codigo_user', '');
+		localStorage.setItem('email_user', '');
+		localStorage.setItem('senha_user', '');
+		localStorage.setItem('empresa_user', '');
+		localStorage.setItem('tb_usuarios', '');
+		console.log(localStorage.getItem('tb_usuarios'));
+		window.location = 'index.html';
+	
+	}
+</script>
+
 <link rel="stylesheet" type="text/css" href="geral.css"/>
 
 <style>
@@ -117,6 +135,9 @@
           </tr>
           <tr>
             <td align="right">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right" class="texto_padrao"><a style="font-size:12px" onclick="Limpar()" href="#">Resetar meu Usuario</a></td>
           </tr>
           <tr>
             <td align="right" class="texto_padrao">Versão do Sistema Mobile: 1.0.1016</td>
