@@ -134,7 +134,7 @@ function adicionarGrade(){
 
 function AdicionarProdutos(){
 	
-		
+	
 	var r = '';
 	if($('#numero_pedido').val() != '' && $('#lista_clientes').val() != ''  && $('#lista_cond_pagto').val() != '' && $('#lista_negociacao').val() != '' && $('#lista_percentual_solado').val() != ''){
 		
@@ -158,6 +158,7 @@ function AdicionarProdutos(){
 		
 		$('#lista_produtos').html(r);
 		$('#tela_add_produtos').show();	
+		$('#tela_inicio').hide();
 		
 	}else{
 		
