@@ -7,7 +7,7 @@ function gravarPedido(){
 	
 	localStorage.setItem('pedidos' , temp_lista_pedidos);
 	//console.log(localStorage.getItem('pedidos'));
-	window.location = 'novo_pedido.html';
+	window.location = 'pedidos.html';
 }
 
 function cancelarPedido(){
@@ -159,6 +159,8 @@ function AdicionarProdutos(){
 		$('#lista_produtos').html(r);
 		$('#tela_add_produtos').show();	
 		$('#tela_inicio').hide();
+		$('#tela_itens').show();	
+		
 		
 	}else{
 		
