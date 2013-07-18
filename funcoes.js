@@ -230,6 +230,7 @@ function SincronizaCatalogo(){
 function verificaTabelas(){
 
 	$('#carregando_1').show();
+	var versao = '1.0';
 	
 	console.log('VERIFICA TABELAS');
 	
@@ -240,13 +241,18 @@ function verificaTabelas(){
 				
 		type: "POST",
 		url: "http://www.firevendas.com.br/sistema/empresa/tarefas/sinc_representante.php",
-		data: "repres="+repres+"&empresa="+empresa,
+		data: "repres="+repres+"&empresa="+empresa+"&versao="+versao,
 				
 		success: function(retorno){
 			
 			console.log(retorno);
 			
-			if(retorno == ''){
+			if(retorno == 'ERRO VERSAO'){
+				
+				alert('Seu sistema esta desatualizado, por favor entre no site da empresa e baixe a nova versão.');
+				window.location = 'index.html';
+							
+			}else if(retorno == ''){
 				console.log('Não foi possível sincronizar as tabelas, sem acesso a internet.');
 				localStorage.setItem('status_user', 'Você esta offline.');
 			}else{
@@ -332,6 +338,11 @@ function verificaTabelas(){
 						localStorage.setItem('tb_tipos_documentos', tabelas[i]);
 						//console.log('GRAVOU: tb_grades');
 						
+					}else if(i == 13){ //Tabela de Linhas de Produção
+						
+						localStorage.setItem('tb_linhas', tabelas[i]);
+						//console.log('GRAVOU: tb_grades');
+						
 					}
 					
 					
@@ -342,11 +353,11 @@ function verificaTabelas(){
 				
 				console.log('MOSTRANDO CATALOGO DIGITAL: '+localStorage.getItem('tb_catalogo_digital'));
 				console.log('Verificação de Tabelas Concluídas.');
+				
+				$('#carregando_1').hide();
+				window.location = 'painel.html';
 		
 			}
-			
-			$('#carregando_1').hide();
-			window.location = 'painel.html';
 
 		}
 		

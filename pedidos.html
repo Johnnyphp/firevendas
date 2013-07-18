@@ -12,7 +12,7 @@
 	function sincronizarPedidos(){
 		
 		$('#msg_sinc').show();
-		
+		console.log(localStorage.getItem('tb_temp_clientes'));
 		$.ajax({
 				
 			type: "POST",
@@ -24,11 +24,13 @@
 				console.log(retorno);
 			
 			
-				if(retorno == 1){
+				if(retorno != 0){
 					
-					alert('Pedidos enviados com sucesso.');
+					alert(retorno);
 					localStorage.setItem('pedidos' , '');
 					localStorage.setItem('itens_pedido' , '');
+					localStorage.setItem('tb_temp_clientes' , '');
+					//console.log(localStorage.getItem('itens_pedido'));
 					window.location = 'pedidos.html';
 					
 				}else{
@@ -64,7 +66,7 @@
 
 </head>
 
-<body style="background-color:#004E9B" onload="SincronizaCatalogo()">
+<body style="background-color:#004E9B">
 <table width="100%" border="0" cellspacing="5" cellpadding="0">
   <tr>
     <td height="102"><table width="100%" border="0" cellspacing="5" cellpadding="0">
@@ -96,26 +98,7 @@
         </table></td>
       </tr>
       <tr>
-        <td colspan="2" align="center"><table width="800" border="0" align="center" cellpadding="0" cellspacing="5">
-          <tr>
-            <td><table width="100%" border="0" cellpadding="0" cellspacing="5" id="carrega" style="display:none">
-              <tr>
-                <td width="4%"><img src="img/carregando.gif" width="38" height="38" alt="Carregando" /></td>
-                <td width="96%" class="texto_padrao">Aguarde, carregando Catálogo Digital</td>
-              </tr>
-            </table>
-            
-            
-            <table width="100%" border="0" cellpadding="0" cellspacing="5" id="msg_sinc" style="display:none">
-              <tr>
-                <td width="4%"><img src="img/carregando.gif" width="38" height="38" alt="Carregando" /></td>
-                <td width="96%" class="texto_padrao">Aguarde, sincronizando seus pedidos com a Empresa, se tudo ocorrer com sucesso você receberá em seu email a confirmação de recebimento dos pedidos.</td>
-              </tr>
-            </table>
-            
-            </td>
-          </tr>
-        </table></td>
+        <td colspan="2" align="center"></td>
         </tr>
       <tr>
         <td width="11%" align="center"><img src="img/pedido_virtual.png" width="80" height="81" alt="Pedido Virtual" /></td>

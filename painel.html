@@ -14,11 +14,11 @@
 		
 		$('#empresa').val(localStorage.getItem('empresa_user'));
 		$('#repres').val(localStorage.getItem('codigo_user'));
+		//localStorage.setItem('tb_temp_clientes', '')
 	
-		alert($('#empresa').val());
-		alert($('#repres').val());
-	
-	
+		//alert($('#empresa').val());
+		//alert($('#repres').val());
+
 	}
 	
 </script>
@@ -76,51 +76,30 @@
         <td colspan="3" align="center">&nbsp;</td>
         </tr>
       <tr>
-        <td width="32%" align="center">
-        
-        
-        
-        
-        <table width="100%" border="0" cellspacing="5" cellpadding="0">
+        <td width="47%" align="center"><table width="100%" border="0" cellspacing="5" cellpadding="0">
           <tr>
-            <td align="center" class="texto_padrao">
-              
-              <form id="form1" name="form1" method="post" action="http://www.firevendas.com.br/sistema/empresa/offline/off_novo.php">
-                <input type="hidden" name="empresa" id="empresa" />
-                <input type="hidden" name="repres" id="repres" />
-<input name="input" type="image" src="img/catalogo_digital.png" />
-                </form>
-            </tr>
-          </table></td>
-        <td width="34%" align="center"><img onclick="IrUrl('tabela_precos.html')" style="cursor:pointer" src="img/icon_tabela_de_precos.png" width="123" height="127" alt="Catalogo Digital" /></td>
-        <td width="34%" align="center"><img onclick="IrUrl('cadastro_clientes.html')" style="cursor:pointer" src="img/icon_clientes.png" width="128" height="128" alt="Clientes" /></td>
-        </tr>
-      <tr>
-        <td align="center" class="texto_padrao"><span >Catálogo Digital (offline)</span></td>
-        <td align="center" class="texto_padrao"><span >Tabela de Preços (offline)</span></td>
-        <td align="center" class="texto_padrao"><span >Cadastro de Clientes (offline)</span></td>
-      </tr>
-      <tr>
-        <td align="center" class="texto_padrao">
-        
-        <table width="100%" border="0" cellpadding="0" cellspacing="5" id="carregando_1" style="display:none">
-          <tr>
-            <td width="4%"><img src="img/carregando.gif" width="38" height="38" alt="Carregando" /></td>
-            <td width="96%" class="texto_padrao">Aguarde, sincronizando Catalogo Digital</td>
-          </tr>
-        </table>
-        
-        <table width="100%" border="0" cellpadding="0" cellspacing="5" id="msg_erro" style="display:none">
-          <tr>
-            <td width="4%"><img src="img/ico_atencao.png" width="36" height="32" alt="Carregando" /></td>
-            <td width="96%" class="texto_padrao">Catálogo Digital não sincronizado, você esta offline</td>
+            <td align="center" class="texto_padrao"><form id="form1" name="form1" method="post" action="http://www.firevendas.com.br/sistema/empresa/offline/off_novo.php">
+              <input type="hidden" name="empresa" id="empresa" />
+              <input type="hidden" name="repres" id="repres" />
+              <input name="input" type="image" src="img/catalogo_digital.png" />
+            </form></td>
           </tr>
         </table></td>
+        <td width="6%" align="center">&nbsp;</td>
+        <td width="47%" align="center"><img onclick="IrUrl('cadastro_clientes.html')" style="cursor:pointer" src="img/icon_clientes.png" width="128" height="128" alt="Clientes" /></td>
+        </tr>
+      <tr>
+        <td height="50" align="center" valign="top" class="texto_padrao">Catálogo Digital (online)</td>
+        <td align="center" valign="top" class="texto_padrao">&nbsp;</td>
+        <td align="center" valign="top" class="texto_padrao"><span >Cadastro de Clientes (offline)</span></td>
+      </tr>
+      <tr>
+        <td align="center" class="texto_padrao"><img onclick="IrUrl('tabela_precos.html')" style="cursor:pointer" src="img/icon_tabela_de_precos.png" width="123" height="127" alt="Catalogo Digital" /></td>
         <td align="center" class="texto_padrao">&nbsp;</td>
         <td align="center" class="texto_padrao"><span style="cursor:pointer"><img onclick="IrUrl('pedidos.html')" style="cursor:pointer" src="img/pedido_virtual.png" width="128" height="128" alt="Pedido Virtual" /></span></td>
       </tr>
       <tr>
-        <td align="center" class="texto_padrao">&nbsp;</td>
+        <td align="center" class="texto_padrao">Tabela de Preços (offline)</td>
         <td align="center" class="texto_padrao">&nbsp;</td>
         <td align="center" class="texto_padrao"><span >Pedido Virtual (offline)</span></td>
       </tr>

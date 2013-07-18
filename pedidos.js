@@ -3,7 +3,7 @@
 function gravarPedido(){
 	
 	temp_lista_pedidos = localStorage.getItem('pedidos');	
-	temp_lista_pedidos += $('#numero_pedido').val()+'|'+$('#previsao_entrega').val()+'|'+$('#lista_clientes').val()+'|'+$('#lista_cond_pagto').val()+'|'+$('#lista_negociacao').val()+'|'+$('#lista_percentual_solado').val()+'|'+$('#obs').val()+'|'+$('#tipo_documento').val()+'#';
+	temp_lista_pedidos += $('#numero_pedido').val()+'|'+$('#previsao_entrega').val()+'|'+$('#lista_clientes').val()+'|'+$('#lista_cond_pagto').val()+'|'+$('#lista_negociacao').val()+'|'+$('#lista_percentual_solado').val()+'|'+$('#obs').val()+'|'+$('#tipo_documento').val()+'|'+$('#linha').val()+'#';
 	
 	localStorage.setItem('pedidos' , temp_lista_pedidos);
 	//console.log(localStorage.getItem('pedidos'));
@@ -94,20 +94,39 @@ function adicionarGrade(){
 	//NUMERO PEDIDO|PRODUTO|COR|N1...N15|PRECO
 	//console.log($('#numero_pedido').val()+'|'+$('#lista_produtos').val()+'|'+$('#lista_cores').val()+'|'+$('#n1').val()+'|'+$('#n2').val()+'|'+$('#n3').val()+'|'+$('#n4').val()+'|'+$('#n5').val()+'|'+$('#n6').val()+'|'+$('#n7').val()+'|'+$('#n8').val()+'|'+$('#n9').val()+'|'+$('#n10').val()+'|'+$('#n11').val()+'|'+$('#n12').val()+'|'+$('#n13').val()+'|'+$('#n14').val()+'|'+$('#n15').val()+'|'+$('#preco_atual').val()+'#');
 	//localStorage.getItem('itens_pedido', '');
-	console.log('PRIMEIRA VEZ');
-	console.log(localStorage.getItem('itens_pedido'));	
-	console.log();
+	//console.log('PRIMEIRA VEZ');
+	//console.log(localStorage.getItem('itens_pedido'));	
+	//console.log();
+	
+	//Define a Linha do Produto
+	var linhas = localStorage.getItem('tb_produtos').split('#');
+	var quant_linhas = linhas.length;
+							
+	for(var i=0; i<= quant_linhas; i++){
+						
+		if(linhas[i] != null && linhas[i] != 'undefined'){
+						
+			var campos = linhas[i].split('|');
+			
+			if(campos[0] == $('#lista_produtos').val())
+				var linha = campos[2];
+							
+		}
+	}
 	
 	var temp_lista_itens = ''+localStorage.getItem('itens_pedido');	
-	temp_lista_itens += $('#numero_pedido').val()+'|'+$('#lista_produtos').val()+'|'+$('#lista_cores').val()+'|'+$('#n1').val()+'|'+$('#n2').val()+'|'+$('#n3').val()+'|'+$('#n4').val()+'|'+$('#n5').val()+'|'+$('#n6').val()+'|'+$('#n7').val()+'|'+$('#n8').val()+'|'+$('#n9').val()+'|'+$('#n10').val()+'|'+$('#n11').val()+'|'+$('#n12').val()+'|'+$('#n13').val()+'|'+$('#n14').val()+'|'+$('#n15').val()+'|'+$('#preco_atual').val()+'#';
+	temp_lista_itens += $('#numero_pedido').val()+'|'+$('#lista_produtos').val()+'|'+$('#lista_cores').val()+'|'+$('#n1').val()+'|'+$('#n2').val()+'|'+$('#n3').val()+'|'+$('#n4').val()+'|'+$('#n5').val()+'|'+$('#n6').val()+'|'+$('#n7').val()+'|'+$('#n8').val()+'|'+$('#n9').val()+'|'+$('#n10').val()+'|'+$('#n11').val()+'|'+$('#n12').val()+'|'+$('#n13').val()+'|'+$('#n14').val()+'|'+$('#n15').val()+'|'+$('#preco_atual').val()+'|'+linha+'#';
 	
 	localStorage.setItem('itens_pedido' , temp_lista_itens);
 	
-	console.log('SEGUNDA VEZ');
-	console.log(localStorage.getItem('itens_pedido'));
+	//console.log('SEGUNDA VEZ');
 	//console.log(localStorage.getItem('itens_pedido'));
+	//console.log(localStorage.getItem('itens_pedido'));
+	console.log(localStorage.getItem('tb_produtos'));
 	
 	listarItens();
+	
+	
 }
 
 
@@ -116,10 +135,28 @@ function adicionarGrade(){
 function AdicionarProdutos(){
 	
 		
-	
+	var r = '';
 	if($('#numero_pedido').val() != '' && $('#lista_clientes').val() != ''  && $('#lista_cond_pagto').val() != '' && $('#lista_negociacao').val() != '' && $('#lista_percentual_solado').val() != ''){
 		
 		$('#msg_1').hide();	
+		
+		var linhas = localStorage.getItem('tb_produtos').split('#');
+		var quant_linhas = linhas.length;
+					
+			for(var i=1; i<= quant_linhas; i++){
+					
+				if(linhas[i] != null){
+						
+					var campos = linhas[i].split('|');
+	
+					console.log(campos[2]+' / '+$('#linha').val());
+					if(campos[2] == $('#linha').val())
+						r += '<option value="'+campos[0]+'">'+campos[0]+'</option>';
+							
+				}
+			}
+		
+		$('#lista_produtos').html(r);
 		$('#tela_add_produtos').show();	
 		
 	}else{
