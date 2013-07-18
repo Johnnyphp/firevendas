@@ -413,7 +413,7 @@ function verificaNovoUser(){
 	
 	var temp = localStorage.getItem('tb_usuarios');
 	
-	if(temp == null){
+	if(temp == ''){
 	
 		$('#primeiro_cadastro').show();
 			
