@@ -17,7 +17,7 @@
 				
 			type: "POST",
 			url: "http://www.firevendas.com.br/sistema/empresa/tarefas/sinc_pedidos.php",
-			data: "repres="+localStorage.getItem('codigo_user')+"&empresa="+localStorage.getItem('empresa_user')+"&pedidos="+localStorage.getItem('pedidos')+"&itens="+localStorage.getItem('itens_pedido')+"&clientes="+localStorage.getItem('tb_temp_clientes'),
+			data: "repres="+localStorage.getItem('codigo_user')+"&empresa="+localStorage.getItem('empresa_user')+"&pedidos="+localStorage.getItem('pedidos')+"&itens="+localStorage.getItem('itens_pedido')+"&clientes="+localStorage.getItem('tb_temp_clientes')+'&usuario_nome='+localStorage.getItem('nome_user'),
 				
 			success: function(retorno){
 				
@@ -92,6 +92,9 @@
               </tr>
               <tr>
                 <td height="20" align="left" class="texto_padrao"><script> document.write(localStorage.getItem('status_user')); </script></td>
+              </tr>
+              <tr>
+                <td height="20" align="left" class="texto_padrao"><a href="#" onclick="voltarPainel()">Voltar Painel</a></td>
               </tr>
             </table></td>
           </tr>

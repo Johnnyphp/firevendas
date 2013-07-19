@@ -1,4 +1,10 @@
-﻿function gravarCliente(){
+﻿function voltarPainel(){
+
+	window.location = 'painel.html';	
+	
+}
+
+function gravarCliente(){
 	
 	//console.log(localStorage.getItem('tb_temp_clientes'));
 	//localStorage.setItem('tb_temp_clientes', '');
@@ -232,7 +238,7 @@ function verificaTabelas(){
 	$('#carregando_1').show();
 	var versao = '1.0';
 	
-	console.log('VERIFICA TABELAS');
+	//console.log('VERIFICA TABELAS');
 	
 	var repres = localStorage.getItem('codigo_user');
 	var empresa = localStorage.getItem('empresa_user');
@@ -245,7 +251,7 @@ function verificaTabelas(){
 				
 		success: function(retorno){
 			
-			console.log(retorno);
+			//console.log(retorno);
 			
 			if(retorno == 'ERRO VERSAO'){
 				
@@ -253,7 +259,7 @@ function verificaTabelas(){
 				window.location = 'index.html';
 							
 			}else if(retorno == ''){
-				console.log('Não foi possível sincronizar as tabelas, sem acesso a internet.');
+				//console.log('Não foi possível sincronizar as tabelas, sem acesso a internet.');
 				localStorage.setItem('status_user', 'Você esta offline.');
 			}else{
 				
@@ -270,7 +276,7 @@ function verificaTabelas(){
 				
 				for(var i=0; i<= quant_tabelas; i++){
 					
-					console.log('Nº TABELA '+i);
+					//console.log('Nº TABELA '+i);
 					
 					if(i == 0){ //Tabela Clientes
 						
@@ -296,8 +302,7 @@ function verificaTabelas(){
 					}else if(i == 4){ //Tabela de Tipos de Documentos / Local Cobrança
 						
 						localStorage.setItem('tb_tipo_documento', tabelas[i]);
-						//console.log('GRAVOU: tb_tipo_documento');
-						
+												
 					}else if(i == 5){ //Tabela de Comissões
 						
 						localStorage.setItem('tb_tabela_comissoes', tabelas[i]);
@@ -336,6 +341,8 @@ function verificaTabelas(){
 					}else if(i == 12){ //Tabela de Tipo de Documentos
 						
 						localStorage.setItem('tb_tipos_documentos', tabelas[i]);
+						console.log('GRAVOU: tb_tipos_documentos');
+						console.log(localStorage.getItem('tb_tipos_documentos'));
 						//console.log('GRAVOU: tb_grades');
 						
 					}else if(i == 13){ //Tabela de Linhas de Produção
@@ -347,12 +354,12 @@ function verificaTabelas(){
 					
 					
 					
-					console.log(tabelas[i]);
+					//	console.log(tabelas[i]);
 					
 				}
 				
-				console.log('MOSTRANDO CATALOGO DIGITAL: '+localStorage.getItem('tb_catalogo_digital'));
-				console.log('Verificação de Tabelas Concluídas.');
+				//console.log('MOSTRANDO CATALOGO DIGITAL: '+localStorage.getItem('tb_catalogo_digital'));
+				//console.log('Verificação de Tabelas Concluídas.');
 				
 				$('#carregando_1').hide();
 				window.location = 'painel.html';
